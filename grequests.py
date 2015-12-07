@@ -56,6 +56,7 @@ class AsyncRequest(object):
         self.kwargs = kwargs
         #: Resulting ``Response``
         self.response = None
+        self.exception = None
 
     def send(self, **kwargs):
         """
@@ -68,8 +69,10 @@ class AsyncRequest(object):
         merged_kwargs.update(self.kwargs)
         merged_kwargs.update(kwargs)
         try:
-            self.response =  self.session.request(self.method,
-                                                self.url, **merged_kwargs)
+            self.response = self.session.request(self.method,
+                                                 self.url, **merged_kwargs)
+            if self.response.status_code != 200:
+                self.response.raise_for_status()
         except Exception as e:
             self.exception = e
         return self
