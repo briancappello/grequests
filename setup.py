@@ -33,7 +33,7 @@ from setuptools import setup
 
 setup(
     name='grequests',
-    version='0.3.0',
+    version='0.3.1',
     url='https://github.com/kennethreitz/grequests',
     license='BSD',
     author='Kenneth Reitz',
@@ -44,6 +44,8 @@ setup(
         'gevent',
         'requests'
     ],
+    tests_require = ['nose'],
+    test_suite = 'nose.collector',
     py_modules=['grequests'],
     zip_safe=False,
     include_package_data=True,
